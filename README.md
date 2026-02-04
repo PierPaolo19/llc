@@ -4,6 +4,8 @@
 
 This repository provides educational content about cryptocurrency, blockchain technology, and wallet security. The goal is to help people learn about these technologies safely and responsibly.
 
+**🚀 New to cryptocurrency?** Start with our [Quick Start Guide](./QUICK_START.md) for a step-by-step introduction!
+
 ## ⚠️ Important Notice
 
 This is an **educational resource only**. All content is designed to teach legitimate cryptocurrency concepts and security best practices. This repository does NOT contain and will NEVER contain tools or methods for:
@@ -14,6 +16,7 @@ This is an **educational resource only**. All content is designed to teach legit
 
 ## Table of Contents
 
+0. [🚀 Quick Start Guide](./QUICK_START.md) - **Start here if you're new!**
 1. [Cryptocurrency Fundamentals](#cryptocurrency-fundamentals)
 2. [Production Wallet Guides](#production-wallet-guides)
 3. [Wallet Security Best Practices](#wallet-security-best-practices)
