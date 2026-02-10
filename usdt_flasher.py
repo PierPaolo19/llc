@@ -7,7 +7,18 @@ A tool to display USDT balance information with visual effects
 import time
 import sys
 import random
+import argparse
 from datetime import datetime
+
+# ANSI color codes for terminal output
+COLOR_GREEN = '\033[92m'
+COLOR_YELLOW = '\033[93m'
+COLOR_CYAN = '\033[96m'
+COLOR_MAGENTA = '\033[95m'
+COLOR_RESET = '\033[0m'
+
+# Flash animation settings
+FLASH_INTERVAL = 0.3  # seconds between color changes
 
 
 class USDTFlasher:
@@ -24,16 +35,15 @@ class USDTFlasher:
         print("="*50)
         
         end_time = time.time() + duration
-        colors = ['\033[92m', '\033[93m', '\033[96m', '\033[95m']  # Green, Yellow, Cyan, Magenta
-        reset = '\033[0m'
+        colors = [COLOR_GREEN, COLOR_YELLOW, COLOR_CYAN, COLOR_MAGENTA]
         
         while time.time() < end_time:
             color = random.choice(colors)
-            sys.stdout.write(f"\r{color}💰 USDT Balance: ${self.balance:,.2f} 💰{reset}")
+            sys.stdout.write(f"\r{color}💰 USDT Balance: ${self.balance:,.2f} 💰{COLOR_RESET}")
             sys.stdout.flush()
-            time.sleep(0.3)
+            time.sleep(FLASH_INTERVAL)
         
-        print(f"\n{reset}")
+        print(f"\n{COLOR_RESET}")
         print("="*50 + "\n")
     
     def add_transaction(self, amount, transaction_type="deposit"):
@@ -136,8 +146,6 @@ class USDTFlasher:
 
 def main():
     """Main entry point"""
-    import argparse
-    
     parser = argparse.ArgumentParser(description="USDT Flasher Tool")
     parser.add_argument("--balance", type=float, default=1000.0,
                        help="Initial balance (default: 1000.0)")

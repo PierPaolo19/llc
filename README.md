@@ -1,5 +1,7 @@
 # USDT Flasher Tool
 
+> **Note**: This repository is named "llc" (short for "Low Latency Crypto" or "Lightweight Ledger Client") and contains the USDT Flasher Tool.
+
 A Python-based tool to display and manage USDT (Tether) balance information with visual effects.
 
 ## Features
