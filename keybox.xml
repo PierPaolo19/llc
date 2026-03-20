@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  keybox.xml - AndroidAttestation keybox template
+
+  This file is the canonical input consumed by the Tricky Store Zygisk module
+  (https://github.com/5ec1cff/TrickyStore).
+
+  HOW TO USE:
+  1. Replace every placeholder value (shown in UPPER_SNAKE_CASE or as PEM
+     comment blocks) with your actual key/certificate material.
+  2. Push the completed file to the device:
+       adb push keybox.xml /data/adb/tricky_store/keybox.xml
+       adb shell chmod 600 /data/adb/tricky_store/keybox.xml
+  3. Reboot, then verify attestation with an integrity-checking app.
+
+  SCHEMA NOTES:
+  * NumberOfKeyboxes  - total Keybox elements in this document.
+  * Keybox DeviceID   - arbitrary unique identifier for this keybox entry.
+  * Key algorithm     - "ecdsa" or "rsa".
+  * PrivateKey format - always "pem".
+  * Certificate format- always "pem".
+  * Certificate order - leaf (device), intermediate, root.
+
+  SECURITY WARNING:
+  Keep this file confidential. The private keys it contains must never be
+  committed to a public repository or shared with untrusted parties.
+-->
+<AndroidAttestation>
+
+  <NumberOfKeyboxes>1</NumberOfKeyboxes>
+
+  <!-- Keybox entry: replace DeviceID with a value that identifies
+       this particular keybox, e.g. "Pixel_6_Pro_001" -->
+  <Keybox DeviceID="YOUR_DEVICE_ID">
+
+    <!-- ECDSA key pair (required for Android 14+ strong-box path) -->
+    <Key algorithm="ecdsa">
+
+      <!-- Paste your ECDSA P-256 private key in PEM format below.
+           Format: BEGIN EC PRIVATE KEY ... END EC PRIVATE KEY -->
+      <PrivateKey format="pem">INSERT_EC_PRIVATE_KEY_PEM_HERE</PrivateKey>
+
+      <CertificateChain>
+        <NumberOfCertificates>3</NumberOfCertificates>
+
+        <!-- Leaf / device attestation certificate (signed by the intermediate) -->
+        <!-- Format: BEGIN CERTIFICATE ... END CERTIFICATE -->
+        <Certificate format="pem">INSERT_ECDSA_LEAF_CERTIFICATE_PEM_HERE</Certificate>
+
+        <!-- Intermediate CA certificate (signed by the root) -->
+        <Certificate format="pem">INSERT_ECDSA_INTERMEDIATE_CERTIFICATE_PEM_HERE</Certificate>
+
+        <!-- Root CA certificate (Google Hardware Attestation Root or equivalent) -->
+        <Certificate format="pem">INSERT_ECDSA_ROOT_CERTIFICATE_PEM_HERE</Certificate>
+
+      </CertificateChain>
+    </Key>
+
+    <!-- RSA key pair (required for Android 13 and earlier paths) -->
+    <Key algorithm="rsa">
+
+      <!-- Paste your RSA-2048 (or RSA-4096) private key in PEM format below.
+           Format: BEGIN RSA PRIVATE KEY ... END RSA PRIVATE KEY -->
+      <PrivateKey format="pem">INSERT_RSA_PRIVATE_KEY_PEM_HERE</PrivateKey>
+
+      <CertificateChain>
+        <NumberOfCertificates>3</NumberOfCertificates>
+
+        <!-- Leaf / device attestation certificate -->
+        <Certificate format="pem">INSERT_RSA_LEAF_CERTIFICATE_PEM_HERE</Certificate>
+
+        <!-- Intermediate CA certificate -->
+        <Certificate format="pem">INSERT_RSA_INTERMEDIATE_CERTIFICATE_PEM_HERE</Certificate>
+
+        <!-- Root CA certificate -->
+        <Certificate format="pem">INSERT_RSA_ROOT_CERTIFICATE_PEM_HERE</Certificate>
+
+      </CertificateChain>
+    </Key>
+
+  </Keybox>
+
+</AndroidAttestation>
